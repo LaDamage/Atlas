@@ -83,7 +83,7 @@ local SuffixLeaderboard = MiscellaneousSection:CreateToggle("Add Suffixes To Lea
                     if instance:IsA("Frame") then
                         local lbvalue = instance.Values.Value.Text
                         
-                        instance.Values.Value.Text = Libraries.Functions:suffix(lbvalue, 2)
+                        instance.Values.Value.Text = Libraries.Functions:suffix(tonumber(lbvalue), 2)
                     end
                 end
             end
@@ -92,7 +92,7 @@ local SuffixLeaderboard = MiscellaneousSection:CreateToggle("Add Suffixes To Lea
             if instance:IsA("Frame") then
                 local lbvalue = instance.Values.Value.Text
                     
-                instance.Values.Value.Text = Libraries.Functions:suffix(lbvalue, 2)
+                instance.Values.Value.Text = Libraries.Functions:suffix(tonumber(lbvalue), 2)
             end
         end
     end
