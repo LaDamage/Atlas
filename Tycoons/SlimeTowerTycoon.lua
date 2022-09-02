@@ -83,18 +83,22 @@ local SuffixLeaderboard = MiscellaneousSection:CreateToggle("Add Suffixes To Lea
                 wait(5)
                 for yes, instance in pairs(v:GetChildren()) do
                     if instance:IsA("Frame") then
-                        local lbvalue = instance.Values.Value.Text
+                        local lbvalue = tonumber(instance.Values.Value.Text)
                         
-                        instance.Values.Value.Text = Libraries.Functions:suffix(tonumber(lbvalue), 2)
+                        if typeof(lbvalue) == "number" then
+                            instance.Values.Value.Text = Libraries.Functions:suffix(tonumber(lbvalue), 2)
+                        end
                     end
                 end
             end
         end)
         for yes, instance in pairs(v:GetChildren()) do
             if instance:IsA("Frame") then
-                local lbvalue = instance.Values.Value.Text
+                local lbvalue = tonumber(instance.Values.Value.Text)
                     
-                instance.Values.Value.Text = Libraries.Functions:suffix(tonumber(lbvalue), 2)
+                if typeof(lbvalue) == "number" then
+                    instance.Values.Value.Text = Libraries.Functions:suffix(tonumber(lbvalue), 2)
+                end
             end
         end
     end
