@@ -1,3 +1,5 @@
+for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do v:Disable() end
+
 local Atlas = loadstring(game:HttpGet("https://raw.githubusercontent.com/VisualRoblox/Roblox/main/UI-Libraries/Visual%20UI%20Library/Source.lua"))()
 local Window = Atlas:CreateWindow("Atlas", "Slime Tower Tycoon", "Project Atlas", "rbxassetid://10618928818", true, "VisualUIConfigs", "Default")
 
