@@ -3,6 +3,10 @@ for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) d
 local Atlas = loadstring(game:HttpGet("https://raw.githubusercontent.com/VisualRoblox/Roblox/main/UI-Libraries/Visual%20UI%20Library/Source.lua"))()
 local Window = Atlas:CreateWindow("Atlas", "Slime Tower Tycoon", "Project Atlas", "rbxassetid://10618928818", true, "VisualUIConfigs", "Default")
 
+local Credentials = {
+    "Scripting: CollateralDamage#2848",
+}
+
 local Libraries = {
     Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/LaDamage/Functions/main/numbers.lua"))()
 }
@@ -104,10 +108,15 @@ local SuffixLeaderboard = MiscellaneousSection:CreateToggle("Add Suffixes To Lea
     end
 end)
 
-local Settings = Tabs.Settings:CreateSection("Settings")
+local Settings = Tabs.Settings:CreateSection("User Interface")
 local DestroyButton = Settings:CreateButton("Destroy UI", function()
     Atlas:DestroyUI()
 end)
 local ToggleKeybind = Settings:CreateKeybind("Toggle UI", "RightControl", function()
     Atlas:ToggleUI()
 end)
+
+local Credits = Tabs.Settings:CreateSection("Credits")
+for _, v in pairs(Credentials) do
+    Credits:CreateLabel(v)
+end
