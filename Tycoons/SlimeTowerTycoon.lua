@@ -108,6 +108,13 @@ local SuffixLeaderboard = MiscellaneousSection:CreateToggle("Add Suffixes To Lea
     end
 end)
 
+local SprintSlider = MiscellaneousSection:CreateSlider("Sprint Speed", 25, 55, 25, Color3.fromRGB(0, 125, 255), function(value)
+    getsenv(game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Sprint["Click_ControlButton"]).StartSprint = function()
+        game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = value
+        game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Sprint.Icon.ImageColor3 = Color3.fromRGB(180, 180, 180)
+    end
+end)
+
 local Settings = Tabs.Settings:CreateSection("User Interface")
 local DestroyButton = Settings:CreateButton("Destroy UI", function()
     Atlas:DestroyUI()
