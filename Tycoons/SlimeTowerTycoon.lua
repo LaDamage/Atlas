@@ -51,7 +51,7 @@ local AutoMerge = FarmingSection:CreateToggle("Auto Merge", false, Color3.fromRG
 end)
 
 local BuySection = Tabs.Automation:CreateSection("Auto Buy")
-local AmountDropdown = BuySection:CreateDropdown("Slime Amount", {1, 5, 25, 100}, 1, 0.25, function(option)
+local AmountDropdown = BuySection:CreateDropdown("Slime Amount", {1, 5, 25, 50}, 1, 0.25, function(option)
     getgenv().SlimeAmount = option
 end)
 
