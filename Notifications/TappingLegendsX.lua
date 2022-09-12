@@ -109,7 +109,12 @@ PlayerChat.ChildAdded:Connect(function(message)
         --print(EggName, PetName, PetPower, PetTier)
         for _, v in pairs(require(services.ReplicatedStorage.Modules.Tables.Eggs)[EggName].Pets) do
             if v.PetName == PetName then
-                getgenv().PetChance = tonumber(100/v.Chance/services.ReplicatedStorage.Stats[client.Name].PlayerData.TotalLuckMultiplier.Value)
+                getgenv().PetChance = tonumber(100 / v.Chance / services.ReplicatedStorage.Stats[client.Name].PlayerData.TotalLuckMultiplier.Value)
+                if PetTier == 2 then
+                    getgenv().PetChance = tonumber(100 / v.Chance / services.ReplicatedStorage.Stats[client.Name].PlayerData.TotalLuckMultiplier.Value * services.ReplicatedStorage.Stats[client.Name].PlayerData.GoldenChance.Value)
+                elseif PetTier == 3 then
+                    getgenv().PetChance = tonumber(100 / v.Chance / services.ReplicatedStorage.Stats[client.Name].PlayerData.TotalLuckMultiplier.Value * services.ReplicatedStorage.Stats[client.Name].PlayerData.RainbowChance.Value)
+                end
             end
         end
 
@@ -117,16 +122,16 @@ PlayerChat.ChildAdded:Connect(function(message)
         local Pet = PetAssets[PetName]
         if PetTier == 1 then
             PetIconLink = GetImage(require(Pet.Settings).icon:gsub("rbxassetid%:%/%/", ""))
+
         elseif PetTier == 2 then
             PetIconLink = GetImage(require(Pet.Settings).iconGold:gsub("rbxassetid%:%/%/", ""))
-            PetChance *= services.ReplicatedStorage.Stats[client.Name].PlayerData.GoldenChance.Value
+
         elseif PetTier == 3 then
             for _, v in pairs(images) do
                 if _ == PetName then
                     PetIconLink = v or GetImage(require(Pet.Settings).icon:gsub("rbxassetid%:%/%/", ""))
                 end
             end
-            PetChance *= services.ReplicatedStorage.Stats[client.Name].PlayerData.RainbowChance.Value
         end
 
         --[ Create Webhook Data ]--
