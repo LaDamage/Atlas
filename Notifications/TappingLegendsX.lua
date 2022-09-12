@@ -128,7 +128,7 @@ PlayerChat.ChildAdded:Connect(function(message)
 
         --// Create Webhook Data
         local WebhookData = {
-            ["content"] = getgenv().SecretNotification,
+            ["content"] = getgenv().SecretPing,
             ["embeds"] = {{
                 ["title"] = message.TextLabel.Text,
                 ["thumbnail"] = {["url"] = PetIconLink},
@@ -154,7 +154,7 @@ PlayerChat.ChildAdded:Connect(function(message)
             }}
         }
 
-        request({Url= getgenv().NotificationWebhook, Body = game:GetService("HttpService"):JSONEncode(WebhookData), Method = "POST", Headers = {["content-type"] = "application/json"}})
+        request({Url= getgenv().Webhook, Body = game:GetService("HttpService"):JSONEncode(WebhookData), Method = "POST", Headers = {["content-type"] = "application/json"}})
     end
 end)
 
