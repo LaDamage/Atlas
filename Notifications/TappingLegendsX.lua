@@ -20,7 +20,6 @@ local numbers = loadstring(game:HttpGet("https://raw.githubusercontent.com/LaDam
 local codes = loadstring(game:HttpGet("https://raw.githubusercontent.com/LaDamage/MonkeHaxx/main/Tapping-Legends-X/resources/codes.lua"))()
 local images = loadstring(game:HttpGet("https://raw.githubusercontent.com/LaDamage/MonkeHaxx/main/Tapping-Legends-X/resources/pet-images.lua"))()
 
-local eggModule = require(services.ReplicatedStorage.Modules.Tables.Eggs)
 local notificationModule = require(client.PlayerGui.UIScripts.Modules.UIController)
 
 --[ Game Variables ]--
@@ -39,9 +38,9 @@ local GetImage = function(assetId)
     return dataString[12]
 end
 
-local GetRarityColor = function(data, string)
+local GetRarityColor = function(data, str)
     for _, v in pairs(data) do
-        if string.find(string, _) then
+        if string.find(str, _) then
             if _ == "Secret" then
                 getgenv().SecretPing = SecretNotification
                 return tonumber(v)
@@ -51,6 +50,10 @@ local GetRarityColor = function(data, string)
             return tonumber(v)
         end
     end
+end
+
+local GetHatchedPetStats = function(stat, uid)
+    return PetInventory[tostring(uid)][tostring(stat)].Value
 end
 
 local ValueOutput = function(option, number)
@@ -79,68 +82,70 @@ getgenv().ColorData = {
     Secret = "0x32cd32"
 }
 
---[ Pet Information Handler ]--
+--[ Pet Data Handler ]--
 PetInventory.ChildAdded:Connect(function(instance)
-    getgenv().PetUID = instance.Name
+    getgenv().identification = instance.Name
 end)
 
 --[ Webhook Data Collecter & Sender ]--
 PlayerChat.ChildAdded:Connect(function(message)
     if string.find(message.TextLabel.Text, client.Name.." hatched a") then
-        GetRarityColor(ColorData, message.TextLabel.Text)
 
-        --// Get Pet Variables
-        local HatchedPetName = PetInventory[getgenv().PetUID].PetName.Value
-        local HatchedPetPower = PetInventory[getgenv().PetUID].Power.Value
-        local HatchedPetTier = PetInventory[getgenv().PetUID].Tier.Value
+        --[ Get pet Information ]--
+        local RarityColor = GetRarityColor(ColorData, message.TextLabel.Text)
 
-        --// Get Egg Name
+        local PetName = GetHatchedPetStats("PetName", identification)
+        local PetPower = GetHatchedPetStats("Power", identification)
+        local PetTier = GetHatchedPetStats("Tier", identification)
+
+        --[ Get Egg Name ]--
         for _, v in pairs(game:GetService("Workspace").Eggs:GetChildren()) do
-            if client:DistanceFromCharacter(v.E.Position) < 15 then
+            if client:DistanceFromCharacter(v.E.Position) < 25 then
                 getgenv().EggName = tostring(v)
             end
         end
 
-        --// get Pet Chance
-        for i, table in pairs(eggModule[getgenv().EggName].Pets) do
-            if table.PetName == HatchedPetName then
-                getgenv().PetChance = ValueOutput(Options.Chance, 100/table.Chance/services.ReplicatedStorage.Stats[client.Name].PlayerData.TotalLuckMultiplier.Value)
+        --[ Calculate Pet Chance ]--
+        --print(EggName, PetName, PetPower, PetTier)
+        for _, v in pairs(require(services.ReplicatedStorage.Modules.Tables.Eggs)[EggName].Pets) do
+            if v.PetName == PetName then
+                getgenv().PetChance = tonumber(100/v.Chance/services.ReplicatedStorage.Stats[client.Name].PlayerData.TotalLuckMultiplier.Value)
             end
         end
 
-        --// Get Roblox Asset ID Of Hatched Pet
-        local Pet = PetAssets[HatchedPetName]
-        if HatchedPetTier == 1 then
+        --[ Get Roblox Asset ID Of Hatched Pet ]--
+        local Pet = PetAssets[PetName]
+        if PetTier == 1 then
             PetIconLink = GetImage(require(Pet.Settings).icon:gsub("rbxassetid%:%/%/", ""))
-        elseif HatchedPetTier == 2 then
+        elseif PetTier == 2 then
             PetIconLink = GetImage(require(Pet.Settings).iconGold:gsub("rbxassetid%:%/%/", ""))
-        elseif HatchedPetTier == 3 then
+            PetChance *= services.ReplicatedStorage.Stats[client.Name].PlayerData.GoldenChance.Value
+        elseif PetTier == 3 then
             for _, v in pairs(images) do
-                if _ == HatchedPetName then
+                if _ == PetName then
                     PetIconLink = v or GetImage(require(Pet.Settings).icon:gsub("rbxassetid%:%/%/", ""))
                 end
             end
+            PetChance *= services.ReplicatedStorage.Stats[client.Name].PlayerData.RainbowChance.Value
         end
 
-        --// Get Inventory Count
-        local InventorySpace = client.PlayerGui.Menus.Pets.Frame.TotalPetsInfo.Label.text
-        local SplittedInventory = InventorySpace:split(" ")
-
-        --// Create Webhook Data
+        --[ Create Webhook Data ]--
         local WebhookData = {
             ["content"] = getgenv().SecretPing,
             ["embeds"] = {{
                 ["title"] = message.TextLabel.Text,
-                ["thumbnail"] = {["url"] = PetIconLink},
-                ["color"] =  GetRarityColor(ColorData, message.TextLabel.Text),
+                ["thumbnail"] = {
+                    ["url"] = PetIconLink
+                },
+                ["color"] = RarityColor,
                 ["fields"] = {{
                     ["name"] = "🔢 Pet Stats:",
-                    ["value"] = ValueOutput(Options.PetStats, HatchedPetPower),
+                    ["value"] = ValueOutput(Options.PetStats, PetPower),
                     ["inline"] = true
                 },
                 {
                     ["name"] = "🍀 Chance:",
-                    ["value"] = "1 in "..PetChance,
+                    ["value"] = "1 in ".. ValueOutput(Options.Chance, PetChance),
                     ["inline"] = false
                 },
                 {
@@ -149,7 +154,7 @@ PlayerChat.ChildAdded:Connect(function(message)
                     ["inline"] = false
                 }
                 },
-                ["footer"] = {["text"] = '🥚 '..numbers:comma(client.leaderstats.Eggs.Value)},
+                ["footer"] = {["text"] = '🥚 '.. ValueOutput("Comma", client.leaderstats.Eggs.Value)},
                 ["timestamp"] = DateTime.now():ToIsoDate()
             }}
         }
