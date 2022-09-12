@@ -122,10 +122,6 @@ PlayerChat.ChildAdded:Connect(function(message)
             end
         end
 
-        --// Get Inventory Count
-        local InventorySpace = client.PlayerGui.Menus.Pets.Frame.TotalPetsInfo.Label.text
-        local SplittedInventory = InventorySpace:split(" ")
-
         --// Create Webhook Data
         local WebhookData = {
             ["content"] = getgenv().SecretPing,
