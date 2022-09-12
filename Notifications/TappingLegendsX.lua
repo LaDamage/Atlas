@@ -111,16 +111,20 @@ PlayerChat.ChildAdded:Connect(function(message)
         --// Get Roblox Asset ID Of Hatched Pet
         local Pet = PetAssets[HatchedPetName]
         if HatchedPetTier == 1 then
-            PetIconLink = getImage(require(Pet.Settings).icon:gsub("rbxassetid%:%/%/", ""))
+            PetIconLink = GetImage(require(Pet.Settings).icon:gsub("rbxassetid%:%/%/", ""))
         elseif HatchedPetTier == 2 then
-            PetIconLink = getImage(require(Pet.Settings).iconGold:gsub("rbxassetid%:%/%/", ""))
+            PetIconLink = GetImage(require(Pet.Settings).iconGold:gsub("rbxassetid%:%/%/", ""))
         elseif HatchedPetTier == 3 then
             for _, v in pairs(images) do
                 if _ == HatchedPetName then
-                    PetIconLink = v or getImage(require(Pet.Settings).icon:gsub("rbxassetid%:%/%/", ""))
+                    PetIconLink = v or GetImage(require(Pet.Settings).icon:gsub("rbxassetid%:%/%/", ""))
                 end
             end
         end
+
+        --// Get Inventory Count
+        local InventorySpace = client.PlayerGui.Menus.Pets.Frame.TotalPetsInfo.Label.text
+        local SplittedInventory = InventorySpace:split(" ")
 
         --// Create Webhook Data
         local WebhookData = {
