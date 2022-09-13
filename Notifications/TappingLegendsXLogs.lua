@@ -1,3 +1,5 @@
+if game:GetService("CoreGui"):FindFirstChild("HatchLogs") then game:GetService("CoreGui"):FindFirstChild("HatchLogs"):Destroy() end
+
 local HatchLogs = Instance.new("ScreenGui")
 local UIPadding = Instance.new("UIPadding")
 local Frame = Instance.new("ImageLabel")
