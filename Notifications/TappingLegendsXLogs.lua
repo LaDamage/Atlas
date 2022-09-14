@@ -378,8 +378,10 @@ game:GetService("ReplicatedStorage").Stats[game:GetService("Players").LocalPlaye
         PetImage = require(game:GetService("ReplicatedStorage").Pets[instance.PetName.Value].Settings).icon
     elseif PetTier == 2 then
         PetImage = require(game:GetService("ReplicatedStorage").Pets[instance.PetName.Value].Settings).iconGold
+		PetName = "Golden ".. PetName
     elseif PetTier == 3 then
         PetImage = require(game:GetService("ReplicatedStorage").Pets[instance.PetName.Value].Settings).icon
+		PetName = "Rainbow ".. PetName
     end
 
     if PetSerial == "" then
