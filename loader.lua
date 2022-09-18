@@ -10,5 +10,3 @@ for _, games in pairs(GamesTable) do
         game:GetService("Players").LocalPlayer:Kick("This game is not supported by Atlas!")
     end
 end
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/LaDamage/Atlas/main/Resources/Execution.lua"))()
