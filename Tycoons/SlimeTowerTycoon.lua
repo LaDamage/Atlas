@@ -74,6 +74,7 @@ local BuyRate = BuySection:CreateToggle("Buy Drop Rate", false, Color3.fromRGB(0
 end)
 
 local MiscellaneousSection = Tabs.Automation:CreateSection("Miscellaneous")
+--[[
 local SuffixLeaderboard = MiscellaneousSection:CreateToggle("Add Suffixes To Leaderboards", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().LBSuffix = bool
     local Leaderboards = {
@@ -104,6 +105,24 @@ local SuffixLeaderboard = MiscellaneousSection:CreateToggle("Add Suffixes To Lea
                     instance.Values.Value.Text = Libraries.Functions:suffix(tonumber(lbvalue), 2)
                 end
             end
+        end
+    end
+end)]]
+local CompleteObby = MiscellaneousSection:CreateToggle("Auto Complete Obby", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+    getgenv().CompleteObby = bool
+    while task.wait(0.1) do
+        if getgenv().CompleteObby then
+            local count = 0
+            for _, v in pairs(game:GetService("Workspace").ObbyCheckpoints:GetChildren()) do
+                if v:IsA("Part") then
+                    count += 1
+                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ObbyCheckpoints["ObbyCheckpoint".. tostring(count)].CFrame
+                    task.wait(0.5)
+                end
+            end
+            task.wait(0.1)
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").ObbyButton.Button, 0)
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").ObbyButton.Button, 1)
         end
     end
 end)
