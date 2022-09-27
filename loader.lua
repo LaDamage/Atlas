@@ -7,6 +7,6 @@ for _, games in pairs(GamesTable) do
         print(_)
         loadstring(game:HttpGet(games.Script))()
     else
-        game:GetService("Players").LocalPlayer:Kick("This game is not supported by Atlas!")
+        print("This game is not supported!")
     end
 end
