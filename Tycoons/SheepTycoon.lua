@@ -56,7 +56,7 @@ local AutoMerge = FarmingSection:CreateToggle("Auto Merge", false, Color3.fromRG
 end)
 
 local BuySection = Tabs.Automation:CreateSection("Auto Buy")
-local AmountDropdown = BuySection:CreateDropdown("Slime Amount", {1, 3, 10}, 1, 0.25, function(option)
+local AmountDropdown = BuySection:CreateDropdown("Sheep Amount", {1, 3, 10}, 1, 0.25, function(option)
     if option == 1  then
         getgenv().SheepAmount = "Add" 
     elseif option == 3  then
@@ -66,7 +66,7 @@ local AmountDropdown = BuySection:CreateDropdown("Slime Amount", {1, 3, 10}, 1, 
     end
 end)
 
-local BuySlimes = BuySection:CreateToggle("Buy Slimes", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+local BuySlimes = BuySection:CreateToggle("Buy Sheep", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().BuySlimes = bool
     while task.wait(0.1) do
         if getgenv().BuySlimes then
@@ -82,6 +82,20 @@ local BuyRate = BuySection:CreateToggle("Buy Drop Rate", false, Color3.fromRGB(0
         if getgenv().BuyRate then
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoon.Plot[tostring(plot)].Buttons.Upgrade.Head, 0)
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoon.Plot[tostring(plot)].Buttons.Upgrade.Head, 1)
+        end
+    end
+end)
+
+local MiscellaneousSection = Tabs.Automation:CreateSection("Miscellaneous")
+local CompleteObby = MiscellaneousSection:CreateToggle("Auto Complete Obby", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+    getgenv().CompleteObby = bool
+    while task.wait(0.1) do
+        if getgenv().CompleteObby then
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Obby.Wool.Finish, 0)
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Obby.Wool.Finish, 1)
+
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Obby.Money.Finish, 0)
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Obby.Money.Finish, 1)
         end
     end
 end)
