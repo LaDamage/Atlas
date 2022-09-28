@@ -7,7 +7,5 @@ for _, games in pairs(GamesTable) do
     if game.PlaceId == games.ID then
         print(_)
         loadstring(game:HttpGet(games.Script))()
-    else
-        print("This game is not supported!")
     end
 end
