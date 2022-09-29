@@ -56,13 +56,19 @@ local AutoMerge = FarmingSection:CreateToggle("Auto Merge", false, Color3.fromRG
 end)
 
 local BuySection = Tabs.Automation:CreateSection("Auto Buy")
-local AmountDropdown = BuySection:CreateDropdown("Sheep Amount", {1, 3, 10}, 1, 0.25, function(option)
+local AmountDropdown = BuySection:CreateDropdown("Sheep Amount", {1, 3, 10, 30, 50, 100}, 1, 0.25, function(option)
     if option == 1  then
         getgenv().SheepAmount = "Add" 
     elseif option == 3  then
         getgenv().SheepAmount = "Add3" 
     elseif option == 10  then
-        getgenv().SheepAmount = "Add10" 
+        getgenv().SheepAmount = "Add10"
+    elseif option == 30  then
+        getgenv().SheepAmount = "Add30"
+    elseif option == 50  then
+        getgenv().SheepAmount = "Add50"
+    elseif option == 100  then
+        getgenv().SheepAmount = "Add100" 
     end
 end)
 
