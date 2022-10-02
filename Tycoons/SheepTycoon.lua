@@ -95,10 +95,11 @@ end)
 local MiscellaneousSection = Tabs.Automation:CreateSection("Miscellaneous")
 local CompleteObby = MiscellaneousSection:CreateToggle("Auto Complete Obby", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().CompleteObby = bool
+
+    game:GetService("Players").LocalPlayer.PlayerGui.Transition.Enabled = not bool
+
     while task.wait(0.1) do
         if getgenv().CompleteObby then
-            game:GetService("Players").LocalPlayer.PlayerGui.Transition.LocalScript.Disabled = bool
-
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Obby.Wool.Finish, 0)
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Obby.Wool.Finish, 1)
 
