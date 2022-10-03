@@ -72,10 +72,10 @@ local AmountDropdown = BuySection:CreateDropdown("Sheep Amount", {1, 3, 10, 30, 
     end
 end)
 
-local BuySlimes = BuySection:CreateToggle("Buy Sheep", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
-    getgenv().BuySlimes = bool
+local BuySheeps = BuySection:CreateToggle("Buy Sheep", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+    getgenv().BuySheeps = bool
     while task.wait(0.1) do
-        if getgenv().BuySlimes then
+        if getgenv().BuySheeps then
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoon.Plot[tostring(plot)].Buttons[SheepAmount].Head, 0)
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoon.Plot[tostring(plot)].Buttons[SheepAmount].Head, 1)
         end
@@ -105,6 +105,19 @@ local CompleteObby = MiscellaneousSection:CreateToggle("Auto Complete Obby", fal
 
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Obby.Money.Finish, 0)
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Obby.Money.Finish, 1)
+        end
+    end
+end)
+
+local BuyAllSheeps = MiscellaneousSection:CreateToggle("Buy All Sheeps", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+    getgenv().BuyAllSheeps = bool
+    while task.wait(0.1) do
+        if getgenv().BuyAllSheeps then
+            local Buttons = {"Add", "Add3", "Add10", "Add30", "Add50", "Add100"}
+            for _, v in pairs(Buttons) do
+                firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoon.Plot[tostring(plot)].Buttons[v].Head, 0)
+                firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoon.Plot[tostring(plot)].Buttons[v].Head, 1)
+            end
         end
     end
 end)
