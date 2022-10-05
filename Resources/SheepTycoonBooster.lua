@@ -1,4 +1,5 @@
 if game:GetService("CoreGui"):FindFirstChild("FeverDisplay") then game:GetService("CoreGui"):FindFirstChild("FeverDisplay"):Destroy() end
+game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Top.ImageLabel.Fever.Visible = false
 
 local screenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
 local instances = {
