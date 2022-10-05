@@ -134,3 +134,4 @@ local Credits = Tabs.Settings:CreateSection("Credits")
 for _, v in pairs(Credentials) do
     Credits:CreateLabel(v)
 end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LaDamage/Atlas/main/Resources/SheepTycoonBooster.lua"))()
