@@ -56,7 +56,7 @@ local AutoMerge = FarmingSection:CreateToggle("Auto Merge", false, Color3.fromRG
 end)
 
 local BuySection = Tabs.Automation:CreateSection("Auto Buy")
-local AmountDropdown = BuySection:CreateDropdown("Sheep Amount", {1, 3, 10, 30, 50, 100}, 1, 0.25, function(option)
+local AmountDropdown = BuySection:CreateDropdown("Sheep Amount", {1, 3, 10, 30, 50, 100, 1000}, 1, 0.25, function(option)
     if option == 1  then
         getgenv().SheepAmount = "Add" 
     elseif option == 3  then
@@ -69,6 +69,8 @@ local AmountDropdown = BuySection:CreateDropdown("Sheep Amount", {1, 3, 10, 30, 
         getgenv().SheepAmount = "Add50"
     elseif option == 100  then
         getgenv().SheepAmount = "Add100" 
+    elseif option == 1000  then
+        getgenv().SheepAmount = "Add1000" 
     end
 end)
 
@@ -113,7 +115,7 @@ local BuyAllSheeps = MiscellaneousSection:CreateToggle("Buy All Sheeps", false, 
     getgenv().BuyAllSheeps = bool
     while task.wait(0.1) do
         if getgenv().BuyAllSheeps then
-            local Buttons = {"Add", "Add3", "Add10", "Add30", "Add50", "Add100"}
+            local Buttons = {"Add", "Add3", "Add10", "Add30", "Add50", "Add100", "Add1000"}
             for _, v in pairs(Buttons) do
                 firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoon.Tycoons[tostring(plot)]["Buttons_E"][v].Head, 0)
                 firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoon.Tycoons[tostring(plot)]["Buttons_E"][v].Head, 1)
