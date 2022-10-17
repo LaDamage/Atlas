@@ -2,6 +2,7 @@ local GamesTable = {
     ["Slime Tower Tycoon"] = {ID = 10675066724, Script = "https://raw.githubusercontent.com/LaDamage/Atlas/main/Tycoons/SlimeTowerTycoon.lua"},
     ["Sheep Tycoon"] = {ID = 10903978962, Script = "https://raw.githubusercontent.com/LaDamage/Atlas/main/Tycoons/SheepTycoon.lua"},
     ["Tapper Simulator"] = {ID = 9625096419, Script = "https://raw.githubusercontent.com/LaDamage/Atlas/main/Simulators/TapperSimulator.lua"},
+    ["Rarity Factory Tycoon"] = {ID = 10919241870, Script = "https://raw.githubusercontent.com/LaDamage/Atlas/main/Tycoons/RarityFactoryTycoon.lua"},
 }
 
 local atlas = [[ 
