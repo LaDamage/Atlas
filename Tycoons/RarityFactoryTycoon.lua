@@ -89,6 +89,23 @@ local CompleteObby = MiscellaneousSection:CreateToggle("Auto Complete Obby", fal
     end
 end)
 
+local DestroyButton = MiscellaneousSection:CreateButton("Fix Rarity Board", function()
+    local Rarities = require(game:GetService("ReplicatedStorage").Modules.RarityPlan)
+    local Numbers = require(game:GetService("ReplicatedStorage").Modules.NumberUtil)
+
+    for _, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.RarityScreen.RaritiesFrame:GetChildren()) do
+        if Rarities.Loot[v.Name] then
+            if v.Label:FindFirstChild("UIGradient") then
+                v.Label.UIGradient:Destroy() 
+            end
+            
+            v.Label.Font = Enum.Font.FredokaOne
+            v.Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            v.Label.Text = string.format("%s: 1/%s | $%s", v.Name, Numbers.Simplify(tonumber(math.ceil(100 / Rarities:GetTrueLootChance(v.Name)))), Numbers.AddCommas(game.ReplicatedStorage.Rarities[v.Name].Money.Value))
+        end
+    end
+end)
+
 local SprintSlider = MiscellaneousSection:CreateSlider("WalkSpeed", 25, 55, 25, Color3.fromRGB(0, 125, 255), function(value)
     game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = value
 end)
