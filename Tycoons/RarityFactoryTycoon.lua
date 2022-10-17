@@ -43,6 +43,31 @@ local AutoDeposit = FarmingSection:CreateToggle("Auto Deposit", false, Color3.fr
     end
 end)
 
+local BuySection = Tabs.Automation:CreateSection("💸 Buy Section")
+local AutoRebirth = BuySection:CreateToggle("Auto Rebirth", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+    getgenv().AutoRebirth = bool
+    while task.wait(0.01) do
+        if getgenv().AutoRebirth then
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoons[tostring(plot)].Rebirth.Button, 0)
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoons[tostring(plot)].Rebirth.Button, 1)
+        end
+    end
+end)
+local AutoButtons = BuySection:CreateToggle("Auto Buy Buttons", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+    getgenv().AutoButtons = bool
+    while task.wait(0.01) do
+        if getgenv().AutoButtons then
+            for _, v in pairs(game:GetService("Workspace").Tycoons[tostring(plot)].Buttons:GetChildren()) do
+                if v:FindFirstChild("Glow") then
+                    firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoons[tostring(plot)].Buttons[v.Name].Button, 0)
+                    firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoons[tostring(plot)].Buttons[v.Name].Button, 1)
+                    task.wait(1)
+                end
+            end
+        end
+    end
+end)
+
 local MiscellaneousSection = Tabs.Automation:CreateSection("✨ Miscellaneous")
 local SprintSlider = MiscellaneousSection:CreateSlider("WalkSpeed", 25, 55, 25, Color3.fromRGB(0, 125, 255), function(value)
     game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = value
