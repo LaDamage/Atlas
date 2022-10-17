@@ -23,9 +23,15 @@ local Tabs = {
 local FarmingSection = Tabs.Automation:CreateSection("💰 Farming Section")
 local CollectDroplets = FarmingSection:CreateToggle("Collect Orbs", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoCollect = bool
+
     while task.wait() do
         if getgenv().AutoCollect then
             for _, v in pairs(game:GetService("Workspace").Tycoons[tostring(plot)].Drops:GetChildren()) do
+                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                v.CanCollide = false
+            end
+
+            for _, v in pairs(game:GetService("Workspace").Tycoons[tostring(plot)].RebirthTree.Drops:GetChildren()) do
                 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                 v.CanCollide = false
             end
@@ -35,6 +41,7 @@ end)
 
 local AutoDeposit = FarmingSection:CreateToggle("Auto Deposit", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoDeposit = bool
+
     while task.wait(0.1) do
         if getgenv().AutoDeposit then
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoons[tostring(plot)]["Orb Processor"].Model.Deposit.Button, 0)
@@ -46,6 +53,7 @@ end)
 local BuySection = Tabs.Automation:CreateSection("💸 Buy Section")
 local AutoRebirth = BuySection:CreateToggle("Auto Rebirth", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoRebirth = bool
+
     while task.wait(0.01) do
         if getgenv().AutoRebirth then
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").Tycoons[tostring(plot)].Rebirth.Button, 0)
@@ -55,6 +63,7 @@ local AutoRebirth = BuySection:CreateToggle("Auto Rebirth", false, Color3.fromRG
 end)
 local AutoButtons = BuySection:CreateToggle("Auto Buy Buttons", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoButtons = bool
+
     while task.wait(0.01) do
         if getgenv().AutoButtons then
             for _, v in pairs(game:GetService("Workspace").Tycoons[tostring(plot)].Buttons:GetChildren()) do
@@ -69,6 +78,17 @@ local AutoButtons = BuySection:CreateToggle("Auto Buy Buttons", false, Color3.fr
 end)
 
 local MiscellaneousSection = Tabs.Automation:CreateSection("✨ Miscellaneous")
+local CompleteObby = MiscellaneousSection:CreateToggle("Auto Complete Obby", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+    getgenv().CompleteObby = bool
+
+    while task.wait(0.01) do
+        if getgenv().CompleteObby then
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").obby["2x Cash for 1 Minute"].Button, 0)
+            firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace").obby["2x Cash for 1 Minute"].Button, 1)
+        end
+    end
+end)
+
 local SprintSlider = MiscellaneousSection:CreateSlider("WalkSpeed", 25, 55, 25, Color3.fromRGB(0, 125, 255), function(value)
     game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = value
 end)
