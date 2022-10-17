@@ -17,6 +17,7 @@ local Libraries = {
 
 local Tabs = {
     Automation = Window:CreateTab("Automation", true, "rbxassetid://3926305904", Vector2.new(524, 44), Vector2.new(36, 36)),
+    Player = Window:CreateTab("Player", false, "rbxassetid://3926305904", Vector2.new(524, 44), Vector2.new(36, 36)),
     Settings = Window:CreateTab("Settings", false, "rbxassetid://3926305904", Vector2.new(524, 44), Vector2.new(36, 36))
 }
 
@@ -89,7 +90,7 @@ local CompleteObby = MiscellaneousSection:CreateToggle("Auto Complete Obby", fal
     end
 end)
 
-local DestroyButton = MiscellaneousSection:CreateButton("Fix Rarity Board", function()
+local RarityFixButton = MiscellaneousSection:CreateButton("Fix Rarity Board", function()
     local Rarities = require(game:GetService("ReplicatedStorage").Modules.RarityPlan)
     local Numbers = require(game:GetService("ReplicatedStorage").Modules.NumberUtil)
 
@@ -106,11 +107,15 @@ local DestroyButton = MiscellaneousSection:CreateButton("Fix Rarity Board", func
     end
 end)
 
-local SprintSlider = MiscellaneousSection:CreateSlider("WalkSpeed", 25, 55, 25, Color3.fromRGB(0, 125, 255), function(value)
+local ValueSection = Tabs.Player:CreateSection("🏃‍♂️ Player Modification")
+local SpeedSlider = ValueSection:CreateSlider("WalkSpeed", 25, 125, 25, Color3.fromRGB(0, 125, 255), function(value)
     game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = value
 end)
+local JumpSlider = ValueSection:CreateSlider("JumpPower", 25, 150, 25, Color3.fromRGB(0, 125, 255), function(value)
+    game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = value
+end)
 
-local Settings = Tabs.Settings:CreateSection("User Interface")
+local Settings = Tabs.Settings:CreateSection("👀 User Interface")
 local DestroyButton = Settings:CreateButton("Destroy UI", function()
     Atlas:DestroyUI()
 end)
@@ -118,7 +123,7 @@ local ToggleKeybind = Settings:CreateKeybind("Toggle UI", "RightControl", functi
     Atlas:ToggleUI()
 end)
 
-local Credits = Tabs.Settings:CreateSection("Credits")
+local Credits = Tabs.Settings:CreateSection("✏️ Credits")
 for _, v in pairs(Credentials) do
     Credits:CreateLabel(v)
 end
