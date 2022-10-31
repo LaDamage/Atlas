@@ -28,7 +28,7 @@ local FarmingSection = Tabs.Automation:CreateSection("💰 Farming Section")
 local AutoDeposit = FarmingSection:CreateToggle("Auto Deposit", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoDeposit = bool
 
-    while task.wait(1) do
+    while task.wait() do
         if getgenv().AutoDeposit then
             if require(game:GetService("ReplicatedStorage").Game.Packages.Shared.GameSupporter).GetStat(game:GetService("Players").LocalPlayer, "Clicks").Value ~= 0 then
                 firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace")["__MAP"].Plots[GetPlot()].Depositer.Main, 0)
@@ -45,6 +45,18 @@ local AutoMerge = FarmingSection:CreateToggle("Auto Merge", false, Color3.fromRG
         if getgenv().AutoMerge then
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace")["__MAP"].Plots[GetPlot()].Merge.Main, 0)
             firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace")["__MAP"].Plots[GetPlot()].Merge.Main, 1)
+        end
+    end
+end)
+
+local AutoRebirth = FarmingSection:CreateToggle("Auto Rebirth", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
+    getgenv().AutoRebirth = bool
+
+    while task.wait() do
+        if getgenv().AutoRebirth then
+            if not game:GetService("Players").LocalPlayer.PlayerGui.UIS.Main.List.Rebirth.Main.Locked.Visible then
+                game:GetService("ReplicatedStorage").Game.Remotes.Rebirth:InvokeServer()
+            end
         end
     end
 end)
@@ -81,8 +93,12 @@ local ClickForBoost = MiscellaneousSection:CreateToggle("Auto Click For Boost", 
 
     while task.wait(0.1) do
         if getgenv().ClickForBoost then
-            game:GetService("ReplicatedStorage").Game.Remotes.BoostInteract:InvokeServer("Tap")
-            game:GetService("ReplicatedStorage").Game.Remotes.BoostInteract:InvokeServer("Claim")
+            if game:GetService("Players").LocalPlayer.PlayerGui.UIS.Boosts.Frame.Main.FreeWay.Buttons.Tap.Visible then
+                game:GetService("ReplicatedStorage").Game.Remotes.BoostInteract:InvokeServer("Tap")
+            end
+            if game:GetService("Players").LocalPlayer.PlayerGui.UIS.Boosts.Frame.Main.FreeWay.Buttons.Claim.Visible  then
+                game:GetService("ReplicatedStorage").Game.Remotes.BoostInteract:InvokeServer("Claim")
+            end
         end
     end
 end)
