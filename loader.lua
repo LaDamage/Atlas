@@ -6,6 +6,7 @@ local GamesTable = {
     ["Clicker Tower Tycoon"] = {ID = 10769559578, Script = "https://raw.githubusercontent.com/LaDamage/Atlas/main/Tycoons/ClickerTowerTycoon.lua"},
     
     ["Tapper Simulator"] = {ID = 9625096419, Script = "https://raw.githubusercontent.com/LaDamage/Atlas/main/Simulators/TapperSimulator.lua"},
+    ["Rebirth Champions X"] = {ID = 8540346411, Script = "https://raw.githubusercontent.com/LaDamage/Atlas/main/Simulators/RebirthChampionsX.lua"},
 }
 
 local atlas = [[ 
