@@ -93,6 +93,14 @@ local AutoRebirth = GamepassSection:CreateButton("Unlock Auto Rebirth", function
     game:GetService("Players").LocalPlayer.Passes.AutoRebirth.Value = true
 end)
 
+local EggGamepasses = GamepassSection:CreateButton("Unlock Egg Gamepasses", function()
+    for _, v in pairs(game:GetService("Players").LocalPlayer.Passes:GetChildren()) do
+        if v.Name == "FasterEggOpen" or v.Name == "SuperLuck" or v.Name == "UltraLuck" then
+            v.Value = true
+        end
+    end
+end)
+
 local MiscellaneousSection = Tabs.Automation:CreateSection("✨ Miscellaneous Section")
 local AutoSpin = MiscellaneousSection:CreateToggle("Auto Spin Wheel", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoSpin = bool
