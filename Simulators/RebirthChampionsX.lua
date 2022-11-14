@@ -37,7 +37,7 @@ local FarmingSection = Tabs.Automation:CreateSection("💰 Farming Section")
 local AutoClick = FarmingSection:CreateToggle("Auto Click", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoClick = bool
 
-    while task.wait() do
+    while task.wait(0.05) do
         if getgenv().AutoClick then
             local function GetClick()
                 for _, v in pairs(game:GetService("ReplicatedStorage").Events:GetChildren()) do
@@ -55,7 +55,7 @@ end)
 local AutoChest = FarmingSection:CreateToggle("Auto Collect Chests", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoChest = bool
 
-    while task.wait() do
+    while task.wait(1) do
         if getgenv().AutoChest then
             for _, v in pairs(game:GetService("Workspace").Scripts.Chests:GetChildren()) do
                 firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Touch, 0)
@@ -93,7 +93,7 @@ local AutoRebirth = GamepassSection:CreateButton("Unlock Auto Rebirth", function
     game:GetService("Players").LocalPlayer.Passes.AutoRebirth.Value = true
 end)
 
-local MiscellaneousSection = Tabs.Automation:CreateSection("✨ Miscellaneous")
+local MiscellaneousSection = Tabs.Automation:CreateSection("✨ Miscellaneous Section")
 local AutoSpin = MiscellaneousSection:CreateToggle("Auto Spin Wheel", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoSpin = bool
 
@@ -141,7 +141,7 @@ local ExtraPetSection = Tabs.Pets:CreateSection("✨ Extra Pet Section")
 local AutoCraft = ExtraPetSection:CreateToggle("Auto Craft All Pets", false, Color3.fromRGB(0, 125, 255), 0.25, function(bool)
     getgenv().AutoCraft = bool
 
-    while task.wait(0.5) do
+    while task.wait(1) do
         if getgenv().AutoCraft then
             game:GetService("ReplicatedStorage").Functions.Request:InvokeServer("CraftAll", {})
         end
