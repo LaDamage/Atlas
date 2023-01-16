@@ -258,8 +258,8 @@ function Code_LocalScript_2() --Tracker
 				end
 					
 				if _G.StatData["diff_".. stat] < 0 then
-				    newFrame:FindFirstChild("PerMinute").Text = "neg."
-				    newFrame:FindFirstChild("PerHour").Text = "neg."
+				    newFrame:FindFirstChild("PerMinute").Text = "0/min"
+				    newFrame:FindFirstChild("PerHour").Text = "0/hr"
 				end
 			end
 		end)
