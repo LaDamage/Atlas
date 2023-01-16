@@ -256,6 +256,11 @@ function Code_LocalScript_2() --Tracker
 					newFrame:FindFirstChild("PerMinute").Text = NumberUtility.AddCommas(_G.StatData["diff_".. stat]) .."/min"
 					newFrame:FindFirstChild("PerHour").Text = NumberUtility.AddCommas(_G.StatData["diff_".. stat] * 60) .."/hr"
 				end
+					
+				if _G.StatData["diff_".. stat] < 0 then
+				    newFrame:FindFirstChild("PerMinute").Text = "neg."
+				    newFrame:FindFirstChild("PerHour").Text = "neg."
+				end
 			end
 		end)
 	end
